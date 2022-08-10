@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "tsc && jest ./dist",
-    "start": "tsc && node dist/main.js"
+    "start": "tsc && node dist/src/main.js"
   },
   "keywords": [],
   "author": "",
