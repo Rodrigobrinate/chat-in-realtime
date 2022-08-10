@@ -1,5 +1,5 @@
-import Message from "../interfaces/Message.interface";
-import MessageServices from "../services/Message.service";
+import Message from "../src/interfaces/Message.interface";
+import MessageServices from "../src/services/Message.service";
 const messageServices = new MessageServices();
 
 describe("UserServices", () => {

@@ -1,5 +1,5 @@
-import User from "../interfaces/User.interface";
-import UserServices from "../services/User.service";
+import User from "../src/interfaces/User.interface";
+import UserServices from "../src/services/User.service";
 const userServices = new UserServices();
 
 describe("UserServices", () => {

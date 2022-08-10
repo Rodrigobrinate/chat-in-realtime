@@ -1,6 +1,6 @@
-import Conversation from "../interfaces/Conversation.interface";
+import Conversation from "../src/interfaces/Conversation.interface";
 
-import ConversationServices from "../services/Conversation.service";
+import ConversationServices from "../src/services/Conversation.service";
 const conversationService = new ConversationServices();
 
 describe("ConversationService", () => {
