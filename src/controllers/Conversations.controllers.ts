@@ -1,5 +1,5 @@
 import ConversationServices from "../services/Conversation.service";
-import { Request, Response } from "express";
+//import { Request, Response } from "express";
 import Conversation from "../interfaces/Conversation.interface";
 const conversationServices = new ConversationServices();
 export default class ConversationController {
@@ -13,7 +13,7 @@ export default class ConversationController {
 
 
 
-  async getMyConversations(req: any, res: Response) {
+  async getMyConversations(req: any, res: any) {
     try {
       const response = await conversationServices.getMyConversations(
         req.body.user.id
@@ -28,7 +28,7 @@ export default class ConversationController {
   }
 
 
-  async create (req: any, res: Response) {
+  async create (req: any, res: any) {
     const {  toId } = req.body;
     try {
      

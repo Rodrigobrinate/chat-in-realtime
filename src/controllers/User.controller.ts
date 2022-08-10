@@ -1,6 +1,6 @@
 import UserServices from "../services/User.service";
 import User from "../interfaces/User.interface";
-import { Request, Response } from "express";
+//import { Request, Response } from "express";
 const userServices = new UserServices();
 export default class UserController {
     //userServices: UserServices;
@@ -10,7 +10,7 @@ export default class UserController {
   }
 
   
-  async CreateUser(req: Request, res: Response) {
+  async CreateUser(req: any, res: any) {
     const { name, email, password } = req.body;
     const user = {
         name: name,
@@ -33,7 +33,7 @@ export default class UserController {
     }
   }
 
-  async GetAllUsers(req: Request, res: Response) {
+  async GetAllUsers(req: any, res: any) {
     try {
       const response = await userServices.getAll() as User[];
       return res.status(200).json({ users: response });
@@ -43,7 +43,7 @@ export default class UserController {
         .json({ message: "não foi possivel listar os usuarios" , error: error})
     } 
   }
-  async LoginUser(req: Request, res: Response) {
+  async LoginUser(req: any, res: any) {
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ message: "preencha todos os campos" });

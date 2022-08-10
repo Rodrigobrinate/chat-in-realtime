@@ -1,11 +1,11 @@
 import MessageServices from "../services/Message.service";
-import { Request, Response } from "express";
+//import { Request, Response } from "express";
 import Message from "../interfaces/Message.interface";
 const messageServices = new MessageServices();
 export default class UserController {
   constructor() {}
 
-  async CreateMessage(req: any, res: Response) {
+  async CreateMessage(req: any, res: any) {
     const { text, userId, conversationId } = req.body;
 
     if (!text || !userId) {
@@ -43,7 +43,7 @@ export default class UserController {
 
 
 
-  async GetMessages(req: Request, res: Response) {
+  async GetMessages(req: any, res: any) {
     const { id, page } = req.params;
     if (!id) {
       return res.status(400).json({ message: "preencha todos os campos" });
