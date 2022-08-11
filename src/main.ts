@@ -13,9 +13,10 @@ var http = require('http');
 const Koa = require('koa');
 const socket = require('socket.io');
 
+
 const koa = new Koa();
 const server = http.createServer(koa.callback());
-const io = socket(server, {cors: {  origin: '*',  credentials: true }});
+const io = socket({server:app, cors: {  origin: '*',  credentials: true }});
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
