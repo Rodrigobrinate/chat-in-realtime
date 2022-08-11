@@ -47,8 +47,8 @@ export default class UserServices {
    async Login(email: string, password: string): Promise<Error | any> {
     try {
       const user = (await this.findOne(email)) as User;
-      if (user) {
-        const passwordIsValid = bcrypt.compareSync(password, user.password?user.password:"");
+      if (user && user.password ) {
+        const passwordIsValid = bcrypt.compareSync(password, user.password);
         if (!passwordIsValid) {
           throw new Error("usuario ou senha invalidos");
         } else {
