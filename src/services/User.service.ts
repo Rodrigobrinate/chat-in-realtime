@@ -27,11 +27,11 @@ export default class UserServices {
 
 
    async findOne(email: string): Promise<User | ErrorConstructor> {
-    try {
+try {
       return await this.userRepository.findOneByEmail(email);
     } catch (error) {
-      throw new Error("não foi possivel encontrar o usuario");
-    }
+     throw new Error("não foi possivel encontrar o usuario");
+   }
   }
 
 
@@ -45,8 +45,9 @@ export default class UserServices {
 
 
    async Login(email: string, password: string): Promise<Error | any> {
-    try {
+try {
       const user = (await this.findOne(email)) as User;
+      
       if (user && user.password ) {
         const passwordIsValid = bcrypt.compareSync(password, user.password);
         if (!passwordIsValid) {
@@ -59,10 +60,11 @@ export default class UserServices {
           return { auth: true, token: token, user: userWithoutPassword };
         }
       } else {
-        return { message: "usuario não encontrado", status: 404 };
+        return { message: "usuario não encontrado", status: 404, user };
       }
-    } catch (error) {
-      return { message: "não foi possivel encontrar o usuario"+error, status: 500 };
+   } catch (error) {
+     
+      return { message: "não foi possivel encontrar o usuario "+error, status: 500 };
     }
   }
 

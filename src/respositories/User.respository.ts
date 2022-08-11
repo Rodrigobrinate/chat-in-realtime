@@ -52,9 +52,10 @@ export default class UserRepository {
             id: true,
             name: true,
             email: true,
+            password: true,
           }
         })
-
+//
         if (util.isNull(user) || util.isUndefined(user)) {
           throw new Error("usuario não encontrado");
         } else {
@@ -62,7 +63,7 @@ export default class UserRepository {
         }
       
     } catch (error) {
-      throw new Error ("não foi possivel encontrar o usuario");
+     throw new Error ("não foi possivel encontrar o usuario");
     }
   }
 

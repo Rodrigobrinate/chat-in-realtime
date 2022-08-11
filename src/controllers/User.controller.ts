@@ -51,11 +51,11 @@ export default class UserController {
    try {
         const data = await userServices.Login( email, password );
         
-          return res.status(200).json(data);
+          return res.status(data.status || 200).json(data);
      } catch (error) {
-        return res
+       return res
           .status(500)
-          .json({ message: "não foi possivel encontrar o usuario", error: error });
+          .json({ message: "não foi possivel encontrar o usuario ", error: error });
       }
     }
   }
