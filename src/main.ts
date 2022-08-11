@@ -81,7 +81,7 @@ io.on('connection', (socket : any) => {
 
 
   app.listen(process.env.PORT || 3001, () => 'server running on port 3000')
-  server.listen( 3002, 'localhost', () => 'server running on port 3000')
+  server.listen(process.env.WPORT || 3002, 'localhost', () => 'server running on port 3000')
 
 
   module.exports = app;
