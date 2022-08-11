@@ -31,7 +31,7 @@ app.use(express.json());
 
 io.on('connection', (socket : any) => {
 
-    //console.log('a user connected');
+    console.log('a user connected');
   
   socket.on("select_room", (data: any) => {
     socket.join(data.room);
