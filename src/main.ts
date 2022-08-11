@@ -11,7 +11,7 @@ const messageServices = new MessageServices();
 const app = express();
 var http = require('http');
 const Koa = require('koa');
-const socket = require('socket.io');
+const Socket = require('socket.io');
 
 const server = http.createServer(app);
 
@@ -19,9 +19,18 @@ const server = http.createServer(app);
 
 //const koa = new Koa();
 //const server = http.createServer(koa.callback());
+const { Server } = require("socket.io");
+const io = new Server(server,{
+  cors: {
+    origin: "*",
+    // or with an array of origins
+    // origin: ["https://my-frontend.com", "https://my-other-frontend.com", "http://localhost:3000"],
+    //credentials: true
+  }
+});
 
 
-const io = socket({server, cors: {  origin: '*',  credentials: true }});
+//const io = Socket({server, cors: {  origin: '*',  credentials: true }});
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
