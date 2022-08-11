@@ -13,10 +13,15 @@ var http = require('http');
 const Koa = require('koa');
 const socket = require('socket.io');
 
+const server = http.createServer(app);
 
-const koa = new Koa();
-const server = http.createServer(koa.callback());
-const io = socket({server:app, cors: {  origin: '*',  credentials: true }});
+
+
+//const koa = new Koa();
+//const server = http.createServer(koa.callback());
+
+
+const io = socket({server, cors: {  origin: '*',  credentials: true }});
 
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
@@ -80,8 +85,8 @@ io.on('connection', (socket : any) => {
 
 
 
-  //app.listen(process.env.PORT || 3001, () => 'server running on port 3000')
-  server.listen(process.env.PORT || 3002, 'localhost', () => 'server running on port 3000')
+  app.listen(process.env.PORT || 3001, () => 'server running on port 3000')
+  //server.listen(process.env.PORT || 3002, 'localhost', () => 'server running on port 3000')
 
 
   module.exports = app;
