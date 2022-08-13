@@ -54,11 +54,8 @@ io.on('connection', (socket : any) => {
   });
   socket.on('new',  async function(data: any) {
     console.log('data2', data);
-    setTimeout(async () => {
       const response = await messageServices.getByConversation(parseInt(data.conversationId), data.page) as Message[];
-      io.to(data.conversationId).emit("message", { room: data.room, message: data,  data:response  })
-    }, 500);
-       
+      io.to(data.conversationId).emit("message", { room: data.room, message: data,  data:response, teste: 'teste'  })
        
   })
 

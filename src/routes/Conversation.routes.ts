@@ -16,6 +16,7 @@ app.use(router)
 
   router.get("/", verifyJWT, conversationController.getMyConversations);
   router.post("/create", verifyJWT, conversationController.create);
+  router.post("/getOneVerify", verifyJWT, conversationController.getOneVerify);
 
 
 

@@ -22,12 +22,16 @@ export default class ConversationServices {
         );
         return conversation;
       } else {
+const getMyConversations = await this.getOneVerify(fromId, toId);
+console.log(getMyConversations, toId, fromId);
         throw new Error("não foi possivel cadatrar a conversa");
       }
     } catch (error) {
       throw new Error("não foi possivel cadatrar a conversa" + error);
     }
   }
+
+  
 
 
 

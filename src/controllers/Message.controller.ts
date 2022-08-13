@@ -7,7 +7,7 @@ export default class UserController {
 
   async CreateMessage(req: any, res: any) {
     const { text, userId, conversationId } = req.body;
-
+console.log(req.body);
     if (!text || !userId) {
       return res.status(400).json({ message: "preencha todos os campos" });
     } else {
