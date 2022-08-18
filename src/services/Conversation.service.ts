@@ -22,8 +22,8 @@ export default class ConversationServices {
         );
         return conversation;
       } else {
-const getMyConversations = await this.getOneVerify(fromId, toId);
-console.log(getMyConversations, toId, fromId);
+//const getMyConversations = await this.getOneVerify(fromId, toId);
+//console.log(getMyConversations, toId, fromId);
         throw new Error("não foi possivel cadatrar a conversa");
       }
     } catch (error) {
@@ -61,6 +61,42 @@ console.log(getMyConversations, toId, fromId);
       return conversations;
     } catch (error) {
       throw new Error("não foi possivel encontrar as conversas " + error);
+    }
+  }
+
+
+  async visualization(
+    userId: number,
+    conversation: number
+  ): Promise<Conversation | ErrorConstructor> {
+    try {
+
+      
+
+
+      const response = await this.conversationRepository.visualization(
+        userId,
+        conversation
+      );
+      return response;
+    } catch (error) {
+      throw new Error("não foi possivel encontrar a conversa " + error);
+    }
+  }
+
+
+  async getNewMessages(  userId: number,
+    conversation: number){
+    try {
+      const response = await this.conversationRepository.getNewMessages(
+        userId,
+        conversation
+      );
+
+
+      return response.length;
+    } catch (error) {
+      throw new Error("não foi possivel encontrar a conversa " + error);
     }
   }
 }

@@ -3,6 +3,8 @@ import User from "../interfaces/User.interface";
 import Error from "../interfaces/Error.interface";
 const jwt = require("jsonwebtoken");
 import bcrypt from "bcrypt";
+import fs from "fs";
+import path from "path";
 
 export default class UserServices {
   userRepository : UserRepository;
@@ -43,6 +45,14 @@ try {
     }
   }
 
+  async getOne(id: number): Promise<User | ErrorConstructor> {
+    try {
+      return await this.userRepository.getOne(id);
+    } catch (error) {
+      throw new Error("não foi possivel listar os usuarios");
+    }
+  }
+
 
    async Login(email: string, password: string): Promise<Error | any> {
 try {
@@ -51,7 +61,7 @@ try {
       if (user && user.password ) {
         const passwordIsValid = bcrypt.compareSync(password, user.password);
         if (!passwordIsValid) {
-          throw new Error("usuario ou senha invalidos");
+          throw new Error("email ou senha invalidos");
         } else {
           const token = jwt.sign({ id: user.id }, "process.env.SECRET", {
             expiresIn: 3600 * 24,
@@ -60,11 +70,11 @@ try {
           return { auth: true, token: token, user: userWithoutPassword };
         }
       } else {
-        return { message: "usuario não encontrado", status: 404, user };
+        return { message: "email ou senha icorreta", status: 404, user };
       }
    } catch (error) {
      
-      return { message: "não foi possivel encontrar o usuario "+error, status: 500 };
+      return { message: "não foi possivel fazer login " , status: 500 };
     }
   }
 
@@ -75,4 +85,52 @@ try {
       throw new Error("não foi possivel listar os usuarios");
     }
   }
+
+
+  async updateProfileImage(id: number, filename: string): Promise<User | ErrorConstructor> {
+    try {
+
+      const user = (await this.getOne(id)) as User;
+
+      if (user) {
+        if (user.profile_image != "profile_default.jpg"){
+      fs.rm(path.join(__dirname, '../../../src/public/profile/', user.profile_image || " ")  , { recursive:true }, (err:any) => {
+        if(err){
+            // File deletion failed
+            console.error(err.message);
+            return;
+        }
+    })}
+      return await this.userRepository.updateProfileImage(id, filename);
+  } else {    
+    throw new Error("não foi possivel atualizar o usuario");
+  } 
+}catch (error) {
+      throw new Error("não foi possivel atualizar o usuario");
+    }
+    }
+
+
+    async updateBackgroundImage(id: number, filename: string): Promise<User | ErrorConstructor> {
+      try {
+  
+        const user = (await this.getOne(id)) as User;
+  
+        if (user) {
+          if (user.background_image != "background_default.jpg"){
+        fs.rm(path.join(__dirname, '../../../src/public/profile/', user.background_image || " ")  , { recursive:true }, (err:any) => {
+          if(err){
+              // File deletion failed
+              console.error(err.message);
+              return;
+          }
+      })}
+        return await this.userRepository.updateBackgroundImage(id, filename);
+    } else {    
+      throw new Error("não foi possivel atualizar o usuario");
+    } 
+  }catch (error) {
+        throw new Error("não foi possivel atualizar o usuario");
+      }
+      }
 }

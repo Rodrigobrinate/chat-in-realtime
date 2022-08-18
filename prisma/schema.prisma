@@ -18,7 +18,8 @@ model Users {
   conversations2 Conversation[] @relation("user2")
   message1       Message[]      @relation("user1")
   message2       Message[]      @relation("user2")
-
+  profile_image  String         
+  background_image String
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,6 +32,8 @@ model Conversation {
   user1     Users     @relation("user1", fields: [user1Id], references: [id])
   user1Id   Int
   user2     Users     @relation("user2", fields: [user2Id], references: [id])
+  user1Visualization DateTime @default(now())
+  user2Visualization DateTime @default(now())
   user2Id   Int
   messages  Message[]
 }

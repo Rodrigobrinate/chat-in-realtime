@@ -1,7 +1,10 @@
 import UserServices from "../services/User.service";
 import User from "../interfaces/User.interface";
 //import { Request, Response } from "express";
+import Index from '../mail/index';
 const userServices = new UserServices();
+const index= new Index();
+
 export default class UserController {
     //userServices: UserServices;
     
@@ -23,9 +26,15 @@ export default class UserController {
       return res.status(400).json({ message: "preecha todos os campos" });
     } else {
       try {
+       
+       
         const response = await userServices.create(user) as User;
+        const a =  await index.sendMail(email,"emailVerify",{name: name, email: email, id: response.id});
+        console.log(a);
         return res.status(200).json({ user: response });
+       
       } catch (error) {
+        console.log(error);
         return res
           .status(500)
           .json({ message: "não foi possivel cadatrar o usuario" , error: error})
@@ -55,7 +64,42 @@ export default class UserController {
      } catch (error) {
        return res
           .status(500)
-          .json({ message: "não foi possivel encontrar o usuario ", error: error });
+          .json({ message: "ops!  "+error });
+      }
+    }
+  }
+
+  async updateProfileImage(req: any, res: any){
+    const { filename } = req.body;
+    const id = req.body.user.id 
+    if (!filename) {
+      return res.status(400).json({ message: "preencha todos os campos", })
+    } else {
+      try {
+        const response = await userServices.updateProfileImage(parseInt(id), filename) as User;
+        return res.status(200).json({ user:filename });
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ message: "não foi possivel atualizar o usuario ",filename: req.body, error: error });
+      }
+    }
+  }
+
+
+  async updateBackgroundImage(req: any, res: any){
+    const { filename } = req.body;
+    const id = req.body.user.id 
+    if (!filename) {
+      return res.status(400).json({ message: "preencha todos os campos", })
+    } else {
+      try {
+        const response = await userServices.updateBackgroundImage(parseInt(id), filename) as User;
+        return res.status(200).json({ user:filename });
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ message: "não foi possivel atualizar o usuario ",filename: req.body, error: error });
       }
     }
   }

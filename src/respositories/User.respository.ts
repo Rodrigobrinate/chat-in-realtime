@@ -16,11 +16,13 @@ export default class UserRepository {
             name: user.name,
             email: user.email,
             password: user.password,
+            profile_image: "user_default.png",
+            background_image: "background_default.jpg"
           },
         });
           
-        const { password, ...userWithoutPassword } = resUser;
-        return userWithoutPassword as User;
+        resUser.password == null
+        return resUser as User;
       } else {
         throw new Error("campos faltantes");
       }
@@ -53,6 +55,8 @@ export default class UserRepository {
             name: true,
             email: true,
             password: true,
+            profile_image: true,
+            background_image: true,
           }
         })
 //
@@ -94,6 +98,62 @@ export default class UserRepository {
       
     } catch (error) {
       throw new Error("não foi possivel listar os usuarios");
+    }
+  }
+
+
+  async updateProfileImage(id: number, filename: string): Promise<User | ErrorConstructor> {
+
+    try {
+      const user = await this.prisma.users.update({
+        where: {
+          id: id,
+        },
+        data: {
+          profile_image: filename,
+        },
+      });
+      return user as User;
+    } catch (error) {
+      throw new Error("não foi possivel atualizar o usuario");
+    }
+  }
+  async updateBackgroundImage(id: number, filename: string): Promise<User | ErrorConstructor> {
+
+    try {
+      const user = await this.prisma.users.update({
+        where: {
+          id: id,
+        },
+        data: {
+          background_image: filename,
+        },
+      });
+      return user as User;
+    } catch (error) {
+      throw new Error("não foi possivel atualizar o usuario");
+    }
+  }
+
+
+  async getOne(id: number): Promise<User | ErrorConstructor> {
+    try {
+      const user = await this.prisma.users.findUnique({
+        where: {
+          id: id,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          password: true,
+          profile_image: true,
+          background_image: true,
+        },
+      });
+      return user as User;
+    } catch (error) {
+      throw new Error("não foi possivel encontrar o usuario");
     }
   }
 }

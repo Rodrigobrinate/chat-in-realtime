@@ -1,13 +1,15 @@
 import MessageServices from "../services/Message.service";
 //import { Request, Response } from "express";
 import Message from "../interfaces/Message.interface";
+import ConversationServices from "../services/Conversation.service";
+const conversationServices = new ConversationServices();
 const messageServices = new MessageServices();
 export default class UserController {
   constructor() {}
 
   async CreateMessage(req: any, res: any) {
     const { text, userId, conversationId } = req.body;
-console.log(req.body);
+//console.log(req.body);
     if (!text || !userId) {
       return res.status(400).json({ message: "preencha todos os campos" });
     } else {
@@ -18,7 +20,10 @@ console.log(req.body);
           fromId: parseInt(userId),
           conversationId: parseInt(conversationId),
         } as Message;
-        const response = await messageServices.create(message);
+        const response = await messageServices.create(message)
+
+        
+
         return res.status(200).json({ message: response });
       } catch (error) {
         return res
@@ -32,8 +37,9 @@ console.log(req.body);
   async getLastMessage(req:any, res: any){
     const {id } = req.params;
         try{
+          const numberofnewmessages = await conversationServices.getNewMessages(parseInt(req.body.user.id),parseInt(id));
             const response = await messageServices.getLastMessage(parseInt(id))
-            return res.status(200).json({ message: response });
+            return res.status(200).json({ message: response, numberofnewmessages: numberofnewmessages });
         } catch (error) {
             return res
                 .status(500)

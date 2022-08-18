@@ -13,7 +13,7 @@ export default class MessageServices {
     ///// cria uma nova mensagem
     async create(message: Message): Promise<Message | ErrorConstructor> {
         try {
-            const text = await this.messageRepository.create(message);
+            const text = await this.messageRepository.create(message)
             return text; 
         } catch (error) {
             throw new Error("não foi possivel cadastrar a menagem "+error);
@@ -27,7 +27,7 @@ export default class MessageServices {
             const messages = await this.messageRepository.getMessage(conversationId, page);
             return messages;
         } catch (error) {
-            throw new Error("não foi possivel encontrar a messagem "+error);
+            throw new Error("não foi possivel encontrar a messagem "+error+ conversationId + page);
         }
     }
 

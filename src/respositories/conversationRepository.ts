@@ -98,4 +98,85 @@ export default class ConversationRepository {
       throw new Error("não foi possivel listar as conversas");
     }
   }
+
+
+ async  visualization(userId: number, conversation: number): Promise<Conversation | ErrorConstructor> {
+    try {
+
+      const teste = await this.prisma.conversation.findUnique({
+        where: {
+          id: conversation,
+        },
+      })
+
+      if (teste?.user1Id === userId) {
+
+       return await this.prisma.conversation.update({
+          where: {
+            id: conversation,
+          },
+          data: {
+            user1Visualization: new Date(),
+          },
+        });
+
+      }else{
+      return  await this.prisma.conversation.update({
+          where: {
+            id: conversation,
+          },
+          data: {
+            user2Visualization: new Date(),
+          },
+        });
+      }
+
+
+     
+    } catch (error) {
+      throw new Error("não foi possivel listar as conversas");
+    }
+  
+
+ }
+
+
+
+ async getNewMessages(userId: number, conversation: number): Promise<Message[] | ErrorConstructor> {
+
+    try {
+
+
+      const teste = await this.prisma.conversation.findUnique({
+        where: {
+          id: conversation,
+        },
+      })
+
+      if (teste?.user1Id === userId) {
+        
+       return await this.prisma.message.findMany({
+        where: {
+          conversationId: conversation,
+          createdAt: {
+            gt: teste?.user1Visualization,
+          },
+        },
+      });
+      }else{
+
+        return await this.prisma.message.findMany({
+        where: {
+          conversationId: conversation,
+          createdAt: {
+            gt: teste?.user2Visualization,
+          },
+        },
+      });
+      }
+    } catch (error) {
+      throw new Error("não foi possivel listar as conversas");
+    }
+  }
+
 }

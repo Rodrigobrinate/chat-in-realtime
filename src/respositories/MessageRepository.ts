@@ -75,7 +75,23 @@ export default class MessageRepository {
         take: 10,
         skip: (page - 1) * 10,
         include: {
-          conversation: true,
+          conversation: {
+            include: {
+              user1: {
+                select: {
+                  id: true,
+                  profile_image: true
+                }
+              },
+              user2: {
+                select: {
+                  id: true,
+                  profile_image: true
+                }
+              },
+            }
+          },
+         
         },
       })) as Message[];
     } catch (error) {
