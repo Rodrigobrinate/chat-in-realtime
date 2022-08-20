@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && jest ./dist",
+    "test": "tsc && ./node_modules/.bin/jest ./dist",
     "start": "node dist/src/main.js",
     "dev":"nodemon ./src/main.ts"
   },
