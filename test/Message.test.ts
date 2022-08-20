@@ -19,7 +19,7 @@ describe("UserServices", () => {
     it("should be get all messages", async () => {
         const response = await messageServices.getByConversation(1, 1);
         expect(response).toBeInstanceOf(Array);
-        expect(response.length).toBe(10);
+        expect(response.length).toBe(1);
 
     }),
     it("should be get last message", async () => {

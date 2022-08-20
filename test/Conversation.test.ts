@@ -5,7 +5,7 @@ const conversationService = new ConversationServices();
 
 describe("ConversationService", () => {
     it("should be create conversation", async () => {
-        const response = await conversationService.create(1,3) as Conversation;
+        const response = await conversationService.create(1,1) as Conversation;
         expect(response).toBeInstanceOf(Object);
     }),
 
@@ -15,7 +15,7 @@ describe("ConversationService", () => {
     }),
 
     it("should be get all conversations", async () => {
-        const response = await conversationService.getOneVerify(1,2) as Conversation[];
+        const response = await conversationService.getOneVerify(1,1) as Conversation[];
         expect(response).toBeInstanceOf(Object);
     })
 
