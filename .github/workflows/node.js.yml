@@ -65,8 +65,6 @@ jobs:
       run: npx prisma db push
 
     - name: run testes
-      run: npm install jest typescript
-    - name: test
       run: npm run test
 
 
