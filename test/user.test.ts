@@ -5,7 +5,7 @@ const userServices = new UserServices();
 describe("UserServices", () => {
     it("should be create user", async () => {
         const user = {
-            name: "teste",
+            name: "rodrigo",
             email: "rodrigo@gmail.com"+Math.random(),
             password: "123456",
         } as User;
