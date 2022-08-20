@@ -6,7 +6,7 @@ describe("UserServices", () => {
     it("should be create user", async () => {
         const user = {
             name: "rodrigo",
-            email: "rodrigo@gmail.com"+Math.random(),
+            email: "rodrigo@gmail.com",
             password: "123456",
         } as User;
         const response = await  userServices.create(user) as User;
@@ -29,12 +29,12 @@ describe("UserServices", () => {
     })
 
     it("should be login user", async () => {
-        const response = await userServices.Login("rbp20199@gmail.com", "123456");
+        const response = await userServices.Login("rodrigo@gmail.com", "123456");
         expect(response).toBeInstanceOf(Object);
         expect(response.password).toBeFalsy();
     })
     it("should be find one user by email", async () => {
-        const response = await userServices.findOne("rbp20199@gmail.com") as any;
+        const response = await userServices.findOne("rodrigo@gmail.com") as any;
         expect(response).toBeInstanceOf(Object);
         expect(response.password).toBeTruthy();
     })
