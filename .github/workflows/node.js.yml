@@ -52,7 +52,6 @@ jobs:
       env:
         DOCKER_MYSQL_TYPE: mysql
         DOCKER_MYSQL_VERSION: "5.7"
-        DATABASE_URL: "mysql://root:""@localhost:3306/chat"
 
 
 
