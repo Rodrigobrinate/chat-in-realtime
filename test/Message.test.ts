@@ -8,7 +8,7 @@ describe("UserServices", () => {
         const message = {
             text: "teste",
             fromId: 1,
-            toId: 2,
+            toId: 1,
             conversationId: 1,
         } as Message;
         const response = await messageServices.create(message) as Message;
