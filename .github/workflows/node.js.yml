@@ -13,6 +13,10 @@ on:
       - main
       - master
 
+env:
+      DATABASE_URL: ${{ secrets.DATABASEURL }}
+
+      
 jobs:
 
   build:
@@ -31,8 +35,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASEURL }}
+    
 
     steps:
     - uses: mirromutth/mysql-action@v1.1
