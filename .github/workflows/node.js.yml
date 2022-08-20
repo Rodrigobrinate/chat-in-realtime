@@ -66,6 +66,7 @@ jobs:
 
     - name: run testes
       run: npm install jest typescript
+    - name: test
       run: npm run test
 
 
