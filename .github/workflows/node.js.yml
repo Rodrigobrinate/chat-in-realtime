@@ -13,11 +13,8 @@ on:
       - main
       - master
 
-env:
-      DATABASE_URL: ${{ secrets.DATABASEURL }}
-
-
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
@@ -25,9 +22,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-       
-
-        
 
 
     steps:
@@ -37,18 +31,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-        
+
 
     - name: Install dependencies
       run: npm i
-      
-    - name: create db
-      run: npx prisma db push
-      
-    - name: run tests
-    - run:  npm run test
 
-  
+
     - name: Deploy application
       if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
       uses: akhileshns/heroku-deploy@v3.12.12
@@ -57,4 +45,3 @@ jobs:
         heroku_app_name: "chat-in-realitime"
         heroku_email: "rodrigobrinate32@gmail.com"
         # set buildpacks
-        
