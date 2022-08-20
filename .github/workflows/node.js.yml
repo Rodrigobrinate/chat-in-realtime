@@ -30,7 +30,7 @@ jobs:
 
         include:
         - name: Node.js 16.x
-          node-version: ${{ matrix.node-version }}
+          node-version: "18.x"
           docker-mysql-type: mysql
           docker-mysql-version: "5.7"
 
