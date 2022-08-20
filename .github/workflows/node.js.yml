@@ -47,6 +47,12 @@ jobs:
         echo "MYSQL_PORT=$(node tool/free-port.js)" >> "$GITHUB_ENV"
         echo "MYSQL_USER=root" >> "$GITHUB_ENV"
 
+    - name: Install MySQL
+      run: docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=$MYSQL_DATABASE -p $MYSQL_PORT:3306 $DOCKER_MYSQL_TYPE:$DOCKER_MYSQL_VERSION
+      env:
+        DOCKER_MYSQL_TYPE: ${{ matrix.docker-mysql-type }}
+        DOCKER_MYSQL_VERSION: ${{ matrix.docker-mysql-version }}
+
 
 
     - name: Install dependencies
