@@ -31,6 +31,14 @@ jobs:
 
 
     steps:
+                         
+
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
     - name: "install mysql"
     - uses: mirromutth/mysql-action@v1.1
       with:
@@ -42,15 +50,7 @@ jobs:
           mysql database: 'chat' # Optional, default value is "test". The specified database which will be create
           mysql root password: ${{ secrets.ROOTPASSWORD }} # Required if "mysql user" is empty, default is empty. The root superuser password
           mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-          mysql password: ${{ secrets.ROOTPASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"                     
-
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    
+          mysql password: ${{ secrets.ROOTPASSWORD }} # Required if "mysql user" exists. The password for the "mysql user"
 
    
         
