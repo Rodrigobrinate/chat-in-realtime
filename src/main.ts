@@ -102,8 +102,8 @@ io.on('connection', (socket : any) => {
 
   app.use("/user/", userRouter);
   app.use("/message/",messageRouter);
-   app.use("/conversation/", conversationRouter);
-
+   app.use("/conversation/", conversationRouter); 
+ 
 
 
 

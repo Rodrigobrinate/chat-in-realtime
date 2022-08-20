@@ -18,6 +18,7 @@ export default class UserServices {
        
         if (user.email && user.name && user.password) {
         user.password = bcrypt.hashSync(user.password, 8);
+        
       return await this.userRepository.create(user);
     } else {
         throw new Error("Missing fields");

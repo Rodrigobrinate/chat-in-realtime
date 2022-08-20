@@ -21,8 +21,8 @@ export default class UserRepository {
           },
         });
           
-        resUser.password == null
-        return resUser as User;
+       const {password , ...rest} = resUser;
+        return rest
       } else {
         throw new Error("campos faltantes");
       }
@@ -85,6 +85,7 @@ export default class UserRepository {
             id: true,
             name: true,
             email: true,
+            password: false,
           },
           take: 20,
         }) as User[];
@@ -92,7 +93,7 @@ export default class UserRepository {
         if (util.isNull(user) || util.isUndefined(user) ) {
           throw new Error("usuario não encontrado");
         } else {
-
+         
           return user as User[];
         }
       

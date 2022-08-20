@@ -18,8 +18,8 @@ class UserRepository {
                         background_image: "background_default.jpg"
                     },
                 });
-                resUser.password == null;
-                return resUser;
+                const { password, ...rest } = resUser;
+                return rest;
             }
             else {
                 throw new Error("campos faltantes");
@@ -76,6 +76,7 @@ class UserRepository {
                     id: true,
                     name: true,
                     email: true,
+                    password: false,
                 },
                 take: 20,
             });
