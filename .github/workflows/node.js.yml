@@ -22,6 +22,14 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+        name:
+        - MySql 5.7
+
+        include:
+        - name: Node.js 16.x
+          node-version: "16.13"
+          docker-mysql-type: mysql
+          docker-mysql-version: "5.7"
 
 
     steps:
@@ -30,6 +38,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: Setup environment
+      shell: bash
+      run: |
+        echo "MYSQL_DATABASE=node_mysql" >> "$GITHUB_ENV"
+        echo "MYSQL_HOST=localhost" >> "$GITHUB_ENV"
+        echo "MYSQL_PORT=$(node tool/free-port.js)" >> "$GITHUB_ENV"
+        echo "MYSQL_USER=root" >> "$GITHUB_ENV"
 
 
 
