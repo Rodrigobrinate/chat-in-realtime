@@ -6,13 +6,10 @@ class UserServices {
         this.prisma = new client_1.PrismaClient();
     }
     async rollback() {
-        const teste = await this.prisma.$transaction([
-            this.prisma.$executeRaw `DELETE FROM message `,
-            this.prisma.$executeRaw `DELETE FROM conversation `,
-            this.prisma.$executeRaw `DELETE FROM users `,
-        ]);
-        teste.map((item) => {
-            return item;
+        return await this.prisma.message.deleteMany({}).then(async () => {
+            return await this.prisma.conversation.deleteMany({}).then(async () => {
+                return await this.prisma.users.deleteMany({});
+            });
         });
     }
 }

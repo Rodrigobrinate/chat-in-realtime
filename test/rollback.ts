@@ -8,17 +8,17 @@ import { PrismaClient, Users } from "@prisma/client";
         
         async  rollback() {
 
-            const teste = await this.prisma.$transaction([
-                this.prisma.users.deleteMany({}),
-                this.prisma.conversation.deleteMany({}),
-                this.prisma.message.deleteMany({}),
-              ])
-
-              teste.map((item: any) => {
+        
+            
                
-                return item
-                
-              })
+               
+             return  await this.prisma.message.deleteMany({}).then(async () => {
+
+            return  await this.prisma.conversation.deleteMany({}).then(async () => {
+                 return  await this.prisma.users.deleteMany({})
+                })
+             })
+         
         }
 
         
