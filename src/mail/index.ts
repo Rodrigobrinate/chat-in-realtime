@@ -22,7 +22,7 @@ const hbs = require('nodemailer-express-handlebars')
 
 
                 async sendMail(email: string, title: string, data:any): Promise<any> {
-                    const filePath = path.join(__dirname, `../../../src/mail/views/${title}.html`);
+                    const filePath = path.join(__dirname, `../../src/mail/views/${title}.html`);
                     const source = fs.readFileSync(filePath, 'utf-8').toString();
                     const template = handlebars.compile(source);
                     const replacements = {
