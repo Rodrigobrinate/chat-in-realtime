@@ -30,7 +30,7 @@ const hbs = require('nodemailer-express-handlebars')
                     };
                     const htmlToSend = template(replacements);
 
-                    const handlebarOptions = {
+                    const handlebarOptions = { 
                         viewEngine: {
                             partialsDir: path.resolve(__dirname, `../../../src/mail/views/`),
                             defaultLayout: false,
