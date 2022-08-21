@@ -47,7 +47,7 @@ app.use(express.json());
 
 const path = require('path')
 console.log(path.join(__dirname, '../../src/public'))
-app.use('/static', express.static(path.join(__dirname, '../../src/public')))
+app.use('/static', express.static(path.join(__dirname, '../../../src/public')))
 
 io.on('connection', (socket : any) => {
 
