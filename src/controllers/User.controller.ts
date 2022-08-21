@@ -37,7 +37,7 @@ export default class UserController {
         console.log(error);
         return res
           .status(500)
-          .json({ message: "não foi possivel cadatrar o usuario" , error: error})
+          .json({ message: "ocorreu um erro ao cadatrar o usuario" , error: error})
       }
     }
   }
